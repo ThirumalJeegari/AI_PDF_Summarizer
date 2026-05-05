@@ -28,12 +28,18 @@ An AI-powered web application that summarizes PDF documents using **Groq LLM (Ll
 ## 📁 Project Structure
 
 
-AI-PDF-Summarizer/
+AI-PDF-Summarizer
+
 │
+
 ├── app.py
+
 ├── .env
+
 ├── requirements.txt
+
 └── README.md
+
 
 
 ---
