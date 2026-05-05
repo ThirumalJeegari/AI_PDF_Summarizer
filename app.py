@@ -18,49 +18,49 @@ st.title("AI PDF Summerizer")
 
 file_upload = st.file_uploader("Please Upload :",type="pdf")
 
+if st.button("Summarize PDF"):
 
 
+    text = ""
+    if file_upload is not None:
+        st.success("You uploaded the document successfully!")
 
-text = ""
-if file_upload is not None:
-    st.success("You uploaded the document successfully!")
+        
+        Readed = PdfReader(file_upload)
 
-    
-    Readed = PdfReader(file_upload)
-
-    for i in Readed.pages:
-        extracted = i.extract_text()
-        if extracted:
-            text += extracted
-        # st.write(text)
-
-
-    max_len = 2000
-    if len(text)>max_len:
-        user_prompt = text[:2000]  
-    else:
-        user_prompt = text
+        for i in Readed.pages:
+            extracted = i.extract_text()
+            if extracted:
+                text += extracted
+            # st.write(text)
 
 
-    if user_prompt:
+        max_len = 2000
+        if len(text)>max_len:
+            user_prompt = text[:2000]  
+        else:
+            user_prompt = text
 
-        try:
-            response =client.chat.completions.create(
-                model = "llama-3.1-8b-instant",
-                messages = [
-                    {
-                        "role":"system",
-                        "content":"You are a helpful assistant, give me simplified ad very short answer in 5-6 lines."
-                    },
-                    {
-                        "role":"user",
-                        "content": user_prompt
-                    }
-                ]       
-            )
-            st.write(response.choices[0].message.content)
-        except Exception as e:
-            st.error(f"Error: {e}")
+
+        if user_prompt:
+
+            try:
+                response =client.chat.completions.create(
+                    model = "llama-3.1-8b-instant",
+                    messages = [
+                        {
+                            "role":"system",
+                            "content":"You are a helpful assistant, give me simplified ad very short answer in 5-6 lines"
+                        },
+                        {
+                            "role":"user",
+                            "content": user_prompt
+                        }
+                    ]       
+                )
+                st.write(response.choices[0].message.content)
+            except Exception as e:
+                st.error(f"Error: {e}")
 
 
 
