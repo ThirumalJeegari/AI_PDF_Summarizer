@@ -23,21 +23,25 @@ file_upload = st.file_uploader("Please Upload :",type="pdf")
 
 text = ""
 if file_upload is not None:
-    st.success("You uploaded the document successfully Now Click on Summerize PDF!")
+    st.success("You uploaded the document successfully!")
 
-if st.button("Summarize PDF"):
+    
+    Readed = PdfReader(file_upload)
 
-    Reader = PdfReader(file_upload)
-
-    for i in Reader.pages:
+    for i in Readed.pages:
         extracted = i.extract_text()
         if extracted:
             text += extracted
         # st.write(text)
 
 
-    
-    user_prompt = text
+    max_len = 2000
+    if len(text)>max_len:
+        user_prompt = text[:2000]  
+    else:
+        user_prompt = text
+
+
     if user_prompt:
 
         try:
@@ -46,7 +50,7 @@ if st.button("Summarize PDF"):
                 messages = [
                     {
                         "role":"system",
-                        "content":"You are a helpful assistant, give me simplified ad very short answer."
+                        "content":"You are a helpful assistant, give me simplified ad very short answer in 5-6 lines."
                     },
                     {
                         "role":"user",
