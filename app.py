@@ -9,16 +9,14 @@ from dotenv import load_dotenv
 
 load_dotenv()
 client =Groq(
-    api_key= os.getenv("GROQ_API_KEY")
-    # base_url ="https://api.groq.com/openai/v1"
-   
+    api_key= os.getenv("GROQ_API_KEY") 
 )
 
-st.title("AI PDF Summerizer")
+st.title("AI Agent on PDF Summerizer")
 
 file_upload = st.file_uploader("Please Upload :",type="pdf")
 
-if st.button("Summarize PDF"):
+if st.button("Summarize"):
 
 
     text = ""
